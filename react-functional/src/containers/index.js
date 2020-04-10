@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import MainContainer from '../containers/MainContainer';
 import ConfirmedGraphContainer from '../containers/ConfirmedGraphContainer';
 import CuredGraphContainer from '../containers/CuredGraphContainer';
+import DeadGraphContainer from '../containers/DeadGraphContainer';
 
 // rest
 import { getCountries } from '../rest/data/covidData';
@@ -36,6 +37,7 @@ function Index() {
           <Redirect noThrow from="/" to="/confirmed" />
           <ConfirmedGraphContainer default path="/confirmed" />
           <CuredGraphContainer path="/cured" />
+          <DeadGraphContainer path="/dead" />
         </Router>
       </MainContainer>
     </>

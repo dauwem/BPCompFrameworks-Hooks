@@ -18,6 +18,9 @@ function Header() {
           <li>
             <Link to="/cured">Cured</Link>
           </li>
+          <li>
+            <Link to="/dead">Dead</Link>
+          </li>
         </ul>
       </nav>
     </header>

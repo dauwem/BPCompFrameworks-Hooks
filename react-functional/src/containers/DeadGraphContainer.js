@@ -11,7 +11,7 @@ import { CovidContext } from '../contexts/CovidProvider';
 // rest
 import { getByCountry } from '../rest/data/covidData';
 
-function CuredGraphContainer() {
+function DeadGraphContainer() {
   const covidContext = useContext(CovidContext);
   const [showChart, setShowChart] = useState(false);
   const [chartData, setChartData] = useState(null);
@@ -19,10 +19,10 @@ function CuredGraphContainer() {
   const changeValueDropdown = useCallback(async (country) => {
     if (country !== 'default') {
       // Custom hook or useReducer
-      let curedStats = await getByCountry(country, 'recovered');
+      let deadStats = await getByCountry(country, 'deaths');
       let tempChartData = [];
-      curedStats.data.map(curedStat => {
-        return tempChartData.push({ x: new Date(curedStat.Date), y: curedStat.Cases });
+      deadStats.data.map(deadStat => {
+        return tempChartData.push({ x: new Date(deadStat.Date), y: deadStat.Cases });
       });
       setChartData(tempChartData);
       setShowChart(true);
@@ -32,7 +32,7 @@ function CuredGraphContainer() {
 
   const data = useMemo(() => [
     {
-      label: 'Recovered covid-19 patients',
+      label: 'Dead covid-19 patients',
       data: chartData
     }
   ], [chartData]);
@@ -43,11 +43,11 @@ function CuredGraphContainer() {
   ], []);
   return (
     <>
-      <Title02 title="Graph recovered patients" /> 
+      <Title02 title="Graph dead patients" /> 
       <MainDropdown data={ covidContext.countries } onChange={ changeValueDropdown } />
       { (showChart && chartData) && <MainChart axes={ axes } data={ data } /> }
     </>
   ); 
 }
 
-export default CuredGraphContainer;
+export default DeadGraphContainer;

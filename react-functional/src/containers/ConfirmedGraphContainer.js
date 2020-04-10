@@ -1,12 +1,9 @@
 import React, { useContext, useCallback, useMemo, useState } from 'react';
 
-// css
-import '../assets/css/containers/ConfirmedGraphContainer.scss';
-
 // components
 import Title02 from '../components/Title02';
 import MainDropdown from '../components/MainDropdown';
-import { Chart } from 'react-charts';
+import MainChart from '../components/MainChart';
 
 // contexts
 import { CovidContext } from '../contexts/CovidProvider';
@@ -21,10 +18,10 @@ function ConfirmedGraphContainer() {
 
   const changeValueDropdown = useCallback(async (country) => {
     if (country !== 'default') {
+      // Custom hook or useReducer
       let confirmedStats = await getByCountry(country, 'confirmed');
       let tempChartData = [];
       confirmedStats.data.map(confirmedStat => {
-        //return tempChartData.push([confirmedStat.Cases, confirmedStat.Date]);
         return tempChartData.push({ x: new Date(confirmedStat.Date), y: confirmedStat.Cases });
       });
       setChartData(tempChartData);
@@ -49,11 +46,7 @@ function ConfirmedGraphContainer() {
     <>
       <Title02 title="Graph confirmed patients" /> 
       <MainDropdown data={ covidContext.countries } onChange={ changeValueDropdown } />
-      <div className="ConfirmedGraphContainer__Chart">
-        {
-          (showChart && chartData) && <Chart data={ data } axes={ axes }  tooltip/>
-        }
-      </div>
+      { (showChart && chartData) && <MainChart axes={ axes } data={ data } /> }
     </>
   );
 }
