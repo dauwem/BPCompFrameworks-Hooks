@@ -8,8 +8,13 @@ import './index.css';
 // containers
 import Containers from './containers';
 
+// contexts
+import { CovidProvider } from './contexts/CovidProvider';
+
 ReactDOM.render(
-  <Containers />,
+  <CovidProvider>
+    <Containers />
+  </CovidProvider>,
   document.getElementById('root')
 );
 
