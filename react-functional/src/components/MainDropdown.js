@@ -6,6 +6,7 @@ import '../assets/css/components/MainDropdown.scss';
 function MainDropdown(props) {
   return props.data && (
     <select className="MainDropdown" onChange={ (event) => props.onChange(event.target.value) }>
+      <option value="default">Select a country</option>
       {
         props.data.data.map(country => {
           return <option key={ country.ISO2 } value={ country.Slug }>{ country.Country }</option>;

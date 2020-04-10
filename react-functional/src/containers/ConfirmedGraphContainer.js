@@ -11,27 +11,37 @@ import { Chart } from 'react-charts';
 // contexts
 import { CovidContext } from '../contexts/CovidProvider';
 
+// rest
+import { getByCountry } from '../rest/data/covidData';
+
 function ConfirmedGraphContainer() {
   const covidContext = useContext(CovidContext);
-  const [showChart, setShowChart] = useState(true);
+  const [showChart, setShowChart] = useState(false);
+  const [chartData, setChartData] = useState(null);
 
-  const changeValueDropdown = useCallback((value) => {
-    console.log(value);
+  const changeValueDropdown = useCallback(async (country) => {
+    if (country !== 'default') {
+      let confirmedStats = await getByCountry(country, 'confirmed');
+      let tempChartData = [];
+      confirmedStats.data.map(confirmedStat => {
+        //return tempChartData.push([confirmedStat.Cases, confirmedStat.Date]);
+        return tempChartData.push({ x: new Date(confirmedStat.Date), y: confirmedStat.Cases });
+      });
+      setChartData(tempChartData);
+      setShowChart(true);
+    }
+    else setShowChart(false);
   }, []);
 
   const data = useMemo(() => [
     {
-      label: 'Series 1',
-      data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
-    },
-    {
-      label: 'Series 2',
-      data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
+      label: 'Confirmed covid-19 patients',
+      data: chartData
     }
-  ], []);
+  ], [chartData]);
 
   const axes = useMemo(() => [
-    { primary: true, type: 'linear', position: 'bottom' },
+    { primary: true, type: 'utc', position: 'bottom' },
     { type: 'linear', position: 'left' }
   ], []);
 
@@ -41,7 +51,7 @@ function ConfirmedGraphContainer() {
       <MainDropdown data={ covidContext.countries } onChange={ changeValueDropdown } />
       <div className="ConfirmedGraphContainer__Chart">
         {
-          showChart && <Chart data={ data } axes={ axes } />
+          (showChart && chartData) && <Chart data={ data } axes={ axes }  tooltip/>
         }
       </div>
     </>

@@ -6,3 +6,10 @@ export async function getCountries() {
       return res;
     });
 }
+
+export async function getByCountry(country, status) {
+  return await API.get(`/country/${ country }/status/${ status }`)
+    .then(res => {
+      return res;
+    });
+}
