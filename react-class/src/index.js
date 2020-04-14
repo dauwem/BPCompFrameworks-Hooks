@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// css
+import './index.css';
+
+// containers
+import Containers from './containers';
+
+// contexts
+import CovidProvider from './contexts/CovidProvider';
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <CovidProvider>
+    <Containers />
+  </CovidProvider>,
   document.getElementById('root')
 );
 
