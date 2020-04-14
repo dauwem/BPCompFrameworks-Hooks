@@ -4,7 +4,7 @@ import React from 'react';
 import '../assets/css/components/Title02.scss';
 
 function Title02(props) {
-  return <h2>{ props.title }</h2>
+  return <h2>{ props.title }</h2>;
 }
 
 export default Title02;
