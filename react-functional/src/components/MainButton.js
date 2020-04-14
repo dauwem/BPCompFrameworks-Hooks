@@ -4,7 +4,7 @@ import React from 'react';
 import '../assets/css/components/MainButton.scss';
 
 function MainButton(props) {
-  return <button className="MainButton" onClick={ props.action }>{ props.text }</button>
+  return <button className="MainButton" onClick={ props.action }>{ props.text }</button>;
 }
 
 export default MainButton;

@@ -5,11 +5,16 @@ import CovidContext from '../contexts/CovidContext';
 
 // components
 import Title02 from '../components/Title02';
+import Title03 from '../components/Title03';
 import MainDropdown from '../components/MainDropdown';
 import MainChart from '../components/MainChart';
+import MainButton from '../components/MainButton';
 
 // rest
 import { getByCountry } from '../rest/data/CovidData';
+
+// helpers
+import { getPopulationByCountry, countViews } from '../helpers/Helper';
 
 export default class ConfirmedGraphContainer extends Component {
   static contextType = CovidContext;
@@ -18,25 +23,34 @@ export default class ConfirmedGraphContainer extends Component {
     super(props);
     this.state = {
       countryCode: null,
+      prevCountryCode: null,
       chartData: null,
       showChart: false,
       data: [],
       axes: [
         { primary: true, type: 'utc', position: 'bottom' },
         { type: 'linear', position: 'left' }
-      ]
+      ],
+      population: 0,
+      count: 0
     };
 
     // bindings
     this.changeValueDropdown = this.changeValueDropdown.bind(this);
   }
 
-  componentDidMount() {
-    console.log('wow');
+  async componentDidUpdate(prev, current) {
+    if ((current.countryCode !== current.prevCountryCode) && current.countryCode) {
+      this.setState({ 
+        population: await getPopulationByCountry(this.state.countryCode),
+        prevCountryCode: current.countryCode
+      });
+    }
   }
 
   async changeValueDropdown(country) {
     if (country !== 'default') {
+      this.setState({ count: countViews(this.state.count, 'increment') });
       let countryValues = country.split(',');
       this.setState({ countryCode: countryValues[1] });
       let confirmedStats = await getByCountry(countryValues[0], 'confirmed');
@@ -51,7 +65,7 @@ export default class ConfirmedGraphContainer extends Component {
             data: tempChartData
           }
         ],
-        showChart: true
+        showChart: confirmedStats.data.length !== 0
       });
     }
     else this.setState({ showChart: false });
@@ -65,10 +79,10 @@ export default class ConfirmedGraphContainer extends Component {
       { this.state.showChart && (
         <>
             <MainChart axes={ this.state.axes } data={ this.state.data } />
-            {/* <Title03 title="Some details..." />
-            <p>In this country live { population } people</p>
-            <p>You checked { state === undefined ? '...' : state.count } countries</p>
-            <MainButton text="Delete previous count" action={ () => dispatch({ type: 'decrement' }) } /> */}
+            <Title03 title="Some details..." />
+            <p>In this country live { this.state.population } people</p>
+            <p>You checked { this.state.count } countries</p>
+            <MainButton text="Delete previous count" action={ () => this.setState({ count: countViews(this.state.count, 'decrement') }) } />
           </>
         ) 
       }
