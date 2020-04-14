@@ -1,9 +1,11 @@
-import React, { useContext, useCallback, useMemo, useState }  from 'react';
+import React, { useContext, useCallback, useMemo, useState, useReducer } from 'react';
 
 // components
 import Title02 from '../components/Title02';
+import Title03 from '../components/Title03';
 import MainDropdown from '../components/MainDropdown';
 import MainChart from '../components/MainChart';
+import MainButton from '../components/MainButton';
 
 // contexts
 import { CovidContext } from '../contexts/CovidProvider';
@@ -11,18 +13,29 @@ import { CovidContext } from '../contexts/CovidProvider';
 // rest
 import { getByCountry } from '../rest/data/CovidData';
 
+// hooks - reducers
+import { countReducer } from '../hooks/Reducers';
+
+// hooks - custom
+import useGetpopulation from '../hooks/customs/useGetPopulation';
+
 function DeadGraphContainer() {
   const covidContext = useContext(CovidContext);
   const [showChart, setShowChart] = useState(false);
   const [chartData, setChartData] = useState(null);
+  const [countryCode, setCountryCode] = useState(null);
+  const [state, dispatch] = useReducer(countReducer, { count: 0 });
+  const population = useGetpopulation(countryCode);
 
-  const changeValueDropdown = useCallback(async (country) => {
+  const changeValueDropdown = useCallback(async country => {
     if (country !== 'default') {
-      // Custom hook or useReducer
-      let deadStats = await getByCountry(country, 'deaths');
+      dispatch({ type: 'increment' });
+      let countryValues = country.split(',');
+      setCountryCode(countryValues[1]);
+      let deathsStats = await getByCountry(countryValues[0], 'deaths');
       let tempChartData = [];
-      deadStats.data.map(deadStat => {
-        return tempChartData.push({ x: new Date(deadStat.Date), y: deadStat.Cases });
+      deathsStats.data.map(deathStat => {
+        return tempChartData.push({ x: new Date(deathStat.Date), y: deathStat.Cases });
       });
       setChartData(tempChartData);
       setShowChart(true);
@@ -30,6 +43,7 @@ function DeadGraphContainer() {
     else setShowChart(false);
   }, []);
 
+  /* Data used by chart */
   const data = useMemo(() => [
     {
       label: 'Dead covid-19 patients',
@@ -41,13 +55,23 @@ function DeadGraphContainer() {
     { primary: true, type: 'utc', position: 'bottom' },
     { type: 'linear', position: 'left' }
   ], []);
+
   return (
     <>
       <Title02 title="Graph dead patients" /> 
       <MainDropdown data={ covidContext.countries } onChange={ changeValueDropdown } />
-      { (showChart && chartData) && <MainChart axes={ axes } data={ data } /> }
+      { (showChart && chartData) && (
+        <>
+            <MainChart axes={ axes } data={ data } />
+            <Title03 title="Some details..." />
+            <p>In this country live { population } people</p>
+            <p>You checked { state === undefined ? '...' : state.count } countries</p>
+            <MainButton text="Delete previous count" action={ () => dispatch({ type: 'decrement' }) } />
+          </>
+        ) 
+      }
     </>
-  ); 
+  );
 }
 
 export default DeadGraphContainer;
