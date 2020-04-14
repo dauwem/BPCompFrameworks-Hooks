@@ -9,7 +9,7 @@ import MainChart from '../components/MainChart';
 import { CovidContext } from '../contexts/CovidProvider';
 
 // rest
-import { getByCountry } from '../rest/data/covidData';
+import { getByCountry } from '../rest/data/CovidData';
 
 function CuredGraphContainer() {
   const covidContext = useContext(CovidContext);

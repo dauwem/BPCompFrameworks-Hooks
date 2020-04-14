@@ -9,7 +9,7 @@ function MainDropdown(props) {
       <option value="default">Select a country</option>
       {
         props.data.data.map(country => {
-          return <option key={ country.ISO2 } value={ country.Slug }>{ country.Country }</option>;
+          return <option key={ country.ISO2 } value={ `${ country.Slug },${ country.ISO2 }` }>{ country.Country }</option>;
         })
       }
     </select>

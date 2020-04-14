@@ -11,7 +11,7 @@ import CuredGraphContainer from '../containers/CuredGraphContainer';
 import DeadGraphContainer from '../containers/DeadGraphContainer';
 
 // rest
-import { getCountries } from '../rest/data/covidData';
+import { getCountries } from '../rest/data/CovidData';
 
 // contexts
 import { CovidContext } from '../contexts/CovidProvider';
