@@ -38,7 +38,7 @@ function ConfirmedGraphContainer() {
         return tempChartData.push({ x: new Date(confirmedStat.Date), y: confirmedStat.Cases });
       });
       setChartData(tempChartData);
-      setShowChart(true);
+      setShowChart(confirmedStats.data.length !== 0);
     }
     else setShowChart(false);
   }, []);
