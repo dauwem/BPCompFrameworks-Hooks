@@ -5,3 +5,4 @@ The usage of the repository is to compare four different frameworks. In these pr
 - [COVID-19 Data API](https://covid19api.com/#)
 - [Context React class based](https://dev.to/evangunawan/react-context-the-easy-way-stateful-component-bh0)
 - [Vue basic tutorial](https://www.youtube.com/watch?v=4deVCNJq3qc)
+- [Vue Context API equivalent](https://techformist.com/global-variables-functions-vue/)
