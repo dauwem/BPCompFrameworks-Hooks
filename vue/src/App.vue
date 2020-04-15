@@ -1,23 +1,22 @@
 <template>
   <div id="app">
     <Header />
-    <MainContainer>
+    <MainContainer v-if="isCountriesSet">
       <router-view />
     </MainContainer>
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
   </div>
 </template>
 
 <script>
+// global
+import Vue from "vue";
+
 // components
 import Header from "@/components/Header";
 import MainContainer from "@/components/MainContainer";
 
 // rest
-import { getCountries } from "./rest/data/CovidData";
+import { getCountries } from "@/rest/data/CovidData";
 
 export default {
   name: "app",
@@ -25,8 +24,14 @@ export default {
     Header,
     MainContainer
   },
+  data() {
+    return {
+      isCountriesSet: false
+    };
+  },
   mounted: async function() {
-    console.log(await getCountries());
+    Vue.prototype.$countries = await getCountries();
+    this.isCountriesSet = true;
   }
 };
 </script>

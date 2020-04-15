@@ -6,6 +6,9 @@
 
 <script>
 export default {
-  name: "Confirmed"
+  name: "Confirmed",
+  mounted: function() {
+    console.log(this.$countries);
+  }
 };
 </script>
