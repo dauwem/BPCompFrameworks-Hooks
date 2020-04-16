@@ -2,7 +2,8 @@
   <div id="Confirmed">
     <Title02 title="Graph confirmed patients" />
     <MainDropdown :data="this.$countries" @changeValue="changeValueDropdown" />
-    <MainChart v-if="showChart && chartData" />
+    <!-- <MainChart v-if="showChart && chartData" /> -->
+    <MainChart v-if="showChart && chartData" :data="this.chartData" />
   </div>
 </template>
 
@@ -36,11 +37,13 @@ export default {
         let countryValues = country.split(",");
         this.countryCode = countryValues[1];
         let stats = await getByCountry(countryValues[0], "confirmed");
-        let tempChartData = [];
+        let chartData = {};
         stats.data.map(stat => {
-          return tempChartData.push({ x: new Date(stat.Date), y: stat.Cases });
+          if (stat.Country !== "") {
+            return (chartData[stat.Date.split("T")[0]] = stat.Cases);
+          }
         });
-        this.chartData = tempChartData;
+        this.chartData = chartData;
         this.showChart = stats.data.length !== 0;
       } else this.showChart = false;
     }

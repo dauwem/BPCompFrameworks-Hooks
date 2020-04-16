@@ -1,13 +1,13 @@
 <template>
   <div id="MainChart">
-    <p>Here is the chart!</p>
-    <!-- <Chart data={ props.data } axes={ props.axes } tooltip/> -->
+    <line-chart :data="data" />
   </div>
 </template>
 
 <script>
 export default {
-  name: "MainChart"
+  name: "MainChart",
+  props: ["data"]
 };
 </script>
 
