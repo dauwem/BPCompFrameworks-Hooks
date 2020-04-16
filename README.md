@@ -7,3 +7,5 @@ The usage of the repository is to compare four different frameworks. In these pr
 - [Vue basic tutorial](https://www.youtube.com/watch?v=4deVCNJq3qc)
 - [Vue Context API equivalent](https://techformist.com/global-variables-functions-vue/)
 - [Vue passing functions with events](https://michaelnthiessen.com/pass-function-as-prop/)
+- [Vue chart](https://www.youtube.com/watch?v=vIxaVlHdpJU)
+- [Vue Hooks] (https://dev.to/voluntadpear/comparing-react-hooks-with-vue-composition-api-4b32)
