@@ -1,5 +1,5 @@
 <template>
-  <div id="cured">
+  <div id="Cured">
     <p>This is the cured graph.</p>
   </div>
 </template>

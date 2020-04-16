@@ -1,5 +1,5 @@
 <template>
-  <div id="dead">
+  <div id="Dead">
     <p>This is the dead graph.</p>
   </div>
 </template>

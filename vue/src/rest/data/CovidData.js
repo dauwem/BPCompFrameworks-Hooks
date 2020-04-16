@@ -2,7 +2,7 @@ import CovidAPI from "../api/CovidApi";
 
 export async function getCountries() {
   return await CovidAPI.get("/countries").then(res => {
-    return res;
+    return res.data;
   });
 }
 

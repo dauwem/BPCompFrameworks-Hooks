@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="App">
     <Header />
     <MainContainer v-if="isCountriesSet">
       <router-view />
