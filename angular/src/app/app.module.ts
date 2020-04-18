@@ -14,7 +14,6 @@ import { MainContainer } from './containers/main-container/main-container.compon
 // components
 import { MainHeaderComponent } from './components/main-header/main-header.component';
 import { MainButtonComponent } from './components/main-button/main-button.component';
-import { MainChartComponent } from './components/main-chart/main-chart.component';
 import { MainDropdownComponent } from './components/main-dropdown/main-dropdown.component';
 import { Title02Component } from './components/title02/title02.component';
 import { Title03Component } from './components/title03/title03.component';
@@ -36,8 +35,7 @@ import { GlobalsService } from './services/globals-service/globals.service';
     // components
     MainHeaderComponent,
     Title02Component,
-    MainDropdownComponent,
-    MainChartComponent
+    MainDropdownComponent
     
   ],
   imports: [
