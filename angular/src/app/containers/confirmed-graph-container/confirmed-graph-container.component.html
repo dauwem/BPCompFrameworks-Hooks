@@ -2,3 +2,6 @@
 <main-dropdown [countries]="countries" (onChange)="changeValueDropdown($event)"></main-dropdown>
 <br />
 <canvas id="canvas">{{ chart }}</canvas>
+<div *ngIf="chart.length !== 0">
+  <p>Test</p>
+</div>

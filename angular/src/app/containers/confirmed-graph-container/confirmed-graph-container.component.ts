@@ -57,31 +57,36 @@ export class ConfirmedGraphContainer implements OnInit {
       this.cases.push(item.Cases);
       this.dates.push(item.Date.split('T')[0]);
     });
-    this.chart = new Chart('canvas', {
-      type: 'line',
-      data: {
-        labels: this.dates,
-        datasets: [
-          {
-            data: this.cases,
-            borderColor: '#9E2C29',
-            fill: false
-          }
-        ]
-      },
-      options: {
-        legend: {
-          display: false
+    if (data.length !== 0) {
+      this.chart = new Chart('canvas', {
+        type: 'line',
+        data: {
+          labels: this.dates,
+          datasets: [
+            {
+              data: this.cases,
+              borderColor: '#9E2C29',
+              fill: false
+            }
+          ]
         },
-        scales: {
-          xAxes: [{
-            display: true
-          }],
-          yAxes: [{
-            display: true
-          }],
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            xAxes: [{
+              display: true
+            }],
+            yAxes: [{
+              display: true
+            }],
+          }
         }
-      }
-    });
+      });
+    }
+    else {
+      this.chart = [];
+    }
   }
 }
