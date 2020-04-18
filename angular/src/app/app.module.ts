@@ -35,6 +35,7 @@ import { GlobalsService } from './services/globals-service/globals.service';
     // components
     MainHeaderComponent,
     Title02Component,
+    Title03Component,
     MainDropdownComponent
     
   ],
