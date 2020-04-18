@@ -1,3 +1,4 @@
-<p>
-  confirmed-graph-container works!
-</p>
+<title02 title="Graph confirmed patients"></title02>
+<main-dropdown [countries]="countries" (onChange)="changeValueDropdown($event)"></main-dropdown>
+<br />
+<canvas id="canvas">{{ chart }}</canvas>
