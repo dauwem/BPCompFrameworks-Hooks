@@ -1,0 +1,4 @@
+<select class="MainDropdown" (change)="changeValue($event.target.value)">
+  <option value="default">Select a country</option>
+  <option *ngFor="let country of countries" [value]="country.Slug + ',' + country.ISO2">{{ country.Country }}</option>
+</select>

@@ -1,0 +1,13 @@
+@import '../../assets/css/General.scss';
+
+.MainDropdown {
+  outline: none;
+  cursor: pointer;
+  margin-top: 30px;
+  background-color: white;
+  border: 1px solid $accentgrey;
+  height: 30px;
+  border-radius: 5px;
+  padding-left: 5px;
+  color: black;
+}

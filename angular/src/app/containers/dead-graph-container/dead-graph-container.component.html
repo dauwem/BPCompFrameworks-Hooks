@@ -1,0 +1,10 @@
+<title02 title="Graph dead patients"></title02>
+<main-dropdown [countries]="countries" (onChange)="changeValueDropdown($event)"></main-dropdown>
+<br />
+<canvas id="canvas">{{ chart }}</canvas>
+<div *ngIf="chart.length !== 0">
+  <title03 title="Some details..."></title03>
+  <p>In this country live {{ population }} people</p>
+  <p>You checked {{ count }} countries</p>
+  <main-button text="Delete previous count" (onClick)="removeCount()"></main-button>
+</div>
