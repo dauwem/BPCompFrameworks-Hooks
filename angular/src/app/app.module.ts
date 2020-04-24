@@ -21,6 +21,7 @@ import { Title03Component } from './components/title03/title03.component';
 // global services
 import { CovidService } from './services/covid-service/covid.service';
 import { GlobalsService } from './services/globals-service/globals.service';
+import { PopulationService } from './services/population-service/population.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { GlobalsService } from './services/globals-service/globals.service';
   ],
   providers: [
     CovidService,
-    GlobalsService
+    GlobalsService,
+    PopulationService
   ],
   bootstrap: [AppComponent]
 })

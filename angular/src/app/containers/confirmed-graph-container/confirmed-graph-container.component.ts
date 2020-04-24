@@ -4,6 +4,11 @@ import { Chart } from 'chart.js';
 // services
 import { GlobalsService } from '../../services/globals-service/globals.service';
 import { CovidService } from '../../services/covid-service/covid.service';
+import { PopulationService } from '../../services/population-service/population.service';
+
+// classes
+import { Population } from '../../classes/population/population';
+import { Count } from '../../classes/count/count';
 
 @Component({
   selector: 'app-confirmed-graph-container',
@@ -17,11 +22,17 @@ export class ConfirmedGraphContainer implements OnInit {
   public chart: any = [];
   private cases: Array<Number> = [];
   private dates: Array<any> = [];
+  public population: number;
+  public count: number = 0;
+  private countInstance: Count;
 
   constructor(
     private globalsService: GlobalsService,
-    private covidService: CovidService
-  ) { }
+    private covidService: CovidService,
+    private populationService: PopulationService
+  ) { 
+    this.countInstance = new Count();
+  }
 
   ngOnInit() { }
 
@@ -32,12 +43,14 @@ export class ConfirmedGraphContainer implements OnInit {
 
   async changeValueDropdown(country) { 
     if (country !== "default") {
-      //this.increaseCount = 1;
+      this.count = this.countInstance.increaseCount();
       let countryValues = country.split(",");
       this.countryCode = countryValues[1];
       await (await this.covidService.getByCountry(countryValues[0], "confirmed")).subscribe(res => {
         this.createChart(res);
       });
+      let populationInstance = new Population(this.populationService);
+      this.population = await populationInstance.getPopulation(this.countryCode);
       /* let chartData = {};
       stats.data.map(stat => {
         if (stat.Country !== "") {
