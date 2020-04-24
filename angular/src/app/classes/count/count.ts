@@ -2,14 +2,18 @@ export class Count {
   private count: number;
 
   constructor() {
-    this.count = 1;
+    this.count = 0;
   }
 
   increaseCount() {
-    return this.count++;
+    this.count = this.count + 1;
+    return this.count;
   }
 
   decreaseCount() {
-    return this.count > 0 && this.count--;
+    if (this.count > 0) {
+      this.count = this.count - 1;
+    }
+    return this.count;
   }
 }

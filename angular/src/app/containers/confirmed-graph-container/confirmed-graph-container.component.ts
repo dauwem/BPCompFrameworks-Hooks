@@ -51,15 +51,11 @@ export class ConfirmedGraphContainer implements OnInit {
       });
       let populationInstance = new Population(this.populationService);
       this.population = await populationInstance.getPopulation(this.countryCode);
-      /* let chartData = {};
-      stats.data.map(stat => {
-        if (stat.Country !== "") {
-          return (chartData[stat.Date.split("T")[0]] = stat.Cases);
-        }
-      });
-      this.chartData = chartData;
-      this.showChart = stats.data.length !== 0; */
     } else this.showChart = false;
+  }
+
+  removeCount() {
+    this.count = this.countInstance.decreaseCount();
   }
 
   createChart(data) {

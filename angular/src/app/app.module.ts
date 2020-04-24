@@ -37,7 +37,8 @@ import { PopulationService } from './services/population-service/population.serv
     MainHeaderComponent,
     Title02Component,
     Title03Component,
-    MainDropdownComponent
+    MainDropdownComponent,
+    MainButtonComponent
     
   ],
   imports: [
